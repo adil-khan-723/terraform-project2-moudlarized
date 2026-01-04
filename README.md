@@ -6,7 +6,10 @@
 
 [![Terraform](https://img.shields.io/badge/Terraform-1.0+-623CE4?style=for-the-badge&logo=terraform&logoColor=white)](https://www.terraform.io/)
 [![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)](https://aws.amazon.com/ec2/)
+[![S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)](https://aws.amazon.com/s3/)
+[![DynamoDB](https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=amazondynamodb&logoColor=white)](https://aws.amazon.com/dynamodb/)
+[![Infrastructure as Code](https://img.shields.io/badge/IaC-Enabled-blue?style=for-the-badge&logo=terraform&logoColor=white)]()
 
 [Overview](#-overview) • [Architecture](#️-architecture) • [Features](#-key-features) • [Getting Started](#-getting-started) • [Modules](#-module-breakdown)
 
@@ -54,16 +57,16 @@ The goal was not just to deploy resources, but to design infrastructure that is:
 
 ### AWS Components
 
-| Component | Purpose |
-|-----------|---------|
-| 🌐 **Default VPC** | Network foundation |
-| 🔀 **Multiple Public Subnets** | High availability across AZs |
-| ⚖️ **Application Load Balancer** | Traffic distribution |
-| 🎯 **Target Group** | Instance-based routing |
-| 💻 **6 EC2 Instances** | Web server fleet |
-| 🔒 **Security Groups** | Network access control |
-| 🪣 **S3 Backend** | Terraform state storage |
-| 🔐 **DynamoDB Table** | State locking mechanism |
+| Component | Purpose | Icon |
+|-----------|---------|------|
+| 🌐 **Default VPC** | Network foundation | ![VPC](https://img.shields.io/badge/VPC-FF9900?style=flat&logo=amazonvpc&logoColor=white) |
+| 🔀 **Multiple Public Subnets** | High availability across AZs | ![Subnet](https://img.shields.io/badge/Subnets-FF9900?style=flat&logo=amazonaws&logoColor=white) |
+| ⚖️ **Application Load Balancer** | Traffic distribution | ![ALB](https://img.shields.io/badge/ALB-FF9900?style=flat&logo=awselasticloadbalancing&logoColor=white) |
+| 🎯 **Target Group** | Instance-based routing | ![TG](https://img.shields.io/badge/Target%20Group-FF9900?style=flat&logo=amazonaws&logoColor=white) |
+| 💻 **6 EC2 Instances** | Web server fleet | ![EC2](https://img.shields.io/badge/EC2-FF9900?style=flat&logo=amazonec2&logoColor=white) |
+| 🔒 **Security Groups** | Network access control | ![SG](https://img.shields.io/badge/Security%20Groups-DD344C?style=flat&logo=amazonsecuritylake&logoColor=white) |
+| 🪣 **S3 Backend** | Terraform state storage | ![S3](https://img.shields.io/badge/S3-569A31?style=flat&logo=amazons3&logoColor=white) |
+| 🔐 **DynamoDB Table** | State locking mechanism | ![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=flat&logo=amazondynamodb&logoColor=white) |
 
 ### 🔄 Traffic Flow
 
@@ -197,16 +200,16 @@ The ALB module dynamically:
 - ✅ Support lifecycle safety (`create_before_destroy`)
 
 **Inputs:**
-- AMI ID
-- Instance type
-- Key name
-- Security group IDs
-- Map of instance names → subnet IDs
+- 🔑 AMI ID
+- 🖥️ Instance type
+- 🔐 Key name
+- 🛡️ Security group IDs
+- 🗺️ Map of instance names → subnet IDs
 
 **Outputs:**
-- Instance IDs (map)
-- Private IPs (map)
-- ARNs (map)
+- 🆔 Instance IDs (map)
+- 🌐 Private IPs (map)
+- 📋 ARNs (map)
 
 ---
 
@@ -241,6 +244,9 @@ Ingress and egress rules are passed as **maps**, allowing:
 
 ### Prerequisites
 
+![Terraform](https://img.shields.io/badge/Terraform-≥1.0-623CE4?style=flat&logo=terraform&logoColor=white)
+![AWS CLI](https://img.shields.io/badge/AWS%20CLI-≥2.0-FF9900?style=flat&logo=amazonaws&logoColor=white)
+
 ```bash
 # Required tools
 terraform >= 1.0
@@ -251,8 +257,8 @@ aws-cli >= 2.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/adil-khan-723/terraform-aws-infrastructure.git
-cd terraform-aws-infrastructure
+git clone https://github.com/adil-khan-723/terraform-project2-moudlarized.git
+cd terraform-project2-moudlarized
 
 # Initialize Terraform
 terraform init
@@ -279,14 +285,14 @@ This confirms:
 
 ## 🎓 Challenges Faced
 
-| Challenge | Solution |
-|-----------|----------|
-| 🔢 **count vs for_each** | Understanding resource addressing and stability |
-| 📤 **Module Output Consumption** | Preserving maps across module boundaries |
-| 🔒 **Security Group References** | Designing flexible variable structures |
-| 🎯 **ALB Target Attachments** | Clean output/input design patterns |
-| 📝 **User Data in Modules** | Template configuration at module boundary |
-| 🔐 **Terraform State Locking** | Validating DynamoDB locking behavior |
+| Challenge | Solution | Status |
+|-----------|----------|--------|
+| 🔢 **count vs for_each** | Understanding resource addressing and stability | ✅ Solved |
+| 📤 **Module Output Consumption** | Preserving maps across module boundaries | ✅ Solved |
+| 🔒 **Security Group References** | Designing flexible variable structures | ✅ Solved |
+| 🎯 **ALB Target Attachments** | Clean output/input design patterns | ✅ Solved |
+| 📝 **User Data in Modules** | Template configuration at module boundary | ✅ Solved |
+| 🔐 **Terraform State Locking** | Validating DynamoDB locking behavior | ✅ Solved |
 
 ---
 
@@ -321,16 +327,10 @@ By completing this project, I gained hands-on experience with:
 - [ ] 🔄 Add CI/CD pipeline for Terraform
 - [ ] 🐳 Extend to ECS or EKS
 - [ ] 🌍 Add environment separation (dev/stage/prod)
-
----
-
-## 👥 Who This Project Is For
-
-- 🎓 DevOps interns
-- 👨‍💻 Junior DevOps engineers
-- ☁️ Cloud engineers learning Terraform
-- 🔄 Anyone transitioning from scripts to infrastructure design
-
+- [ ] 🔍 Implement AWS CloudTrail for audit logging
+- [ ] 💰 Add cost optimization with AWS Cost Explorer
+- [ ] 🚨 Set up SNS notifications for infrastructure events
+- [ ] 
 ---
 
 ## 📚 Key Learnings
@@ -340,21 +340,25 @@ By completing this project, I gained hands-on experience with:
 <td width="50%">
 
 ### 🎯 Technical Skills
-- Terraform module architecture
-- AWS networking best practices
-- State management strategies
-- Security group design patterns
-- Load balancer configuration
+- ✅ Terraform module architecture
+- ✅ AWS networking best practices
+- ✅ State management strategies
+- ✅ Security group design patterns
+- ✅ Load balancer configuration
+- ✅ Infrastructure as Code principles
+- ✅ Remote state management
 
 </td>
 <td width="50%">
 
 ### 💡 Soft Skills
-- Infrastructure as Code principles
-- Production-ready thinking
-- Scalability considerations
-- Team collaboration patterns
-- Documentation practices
+- ✅ Production-ready thinking
+- ✅ Scalability considerations
+- ✅ Team collaboration patterns
+- ✅ Documentation practices
+- ✅ Problem-solving approach
+- ✅ Best practices implementation
+- ✅ Code organization
 
 </td>
 </tr>
@@ -366,33 +370,43 @@ By completing this project, I gained hands-on experience with:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. 🍴 Fork the repository
-2. 🌿 Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. 💾 Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
-5. 🎉 Open a Pull Request
+<div align="center">
 
----
+### How to Contribute
 
-## 📄 License
+</div>
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+1. 🍴 **Fork** the repository
+2. 🌿 **Create** your feature branch (`git checkout -b feature/AmazingFeature`)
+3. 💾 **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. 📤 **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. 🎉 **Open** a Pull Request
 
 ---
 
 ## 🙏 Acknowledgments
 
-- 📖 HashiCorp Terraform Documentation
-- 🌐 AWS Well-Architected Framework
+- 📖 [HashiCorp Terraform Documentation](https://www.terraform.io/docs)
+- 🌐 [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
 - 👥 DevOps Community
+- 💼 [Terraform Best Practices](https://www.terraform-best-practices.com/)
+- 🎓 [AWS Architecture Center](https://aws.amazon.com/architecture/)
 
 ---
 
 ## 📞 Contact
 
-**Adil Khan** - [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adilk3682)
+<div align="center">
 
-Project Link: [https://github.com/adil-khan-723/terraform-aws-infrastructure](https://github.com/adil-khan-723/terraform-project2-moudlarized)
+**Adil Khan**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adilk3682)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:adilk81054@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/adil-khan-723)
+
+**Project Link:** [terraform-project2-moudlarized](https://github.com/adil-khan-723/terraform-project2-moudlarized)
+
+</div>
 
 ---
 
@@ -410,8 +424,18 @@ It reflects how Terraform is **actually used in teams**, not just how it is taug
 
 ---
 
+### 📊 Project Stats
+
+![Terraform](https://img.shields.io/badge/Terraform-100%25-623CE4?style=flat&logo=terraform&logoColor=white)
+![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?style=flat&logo=amazonaws&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=flat)
+![Modules](https://img.shields.io/badge/Modules-3-blue?style=flat)
+![Resources](https://img.shields.io/badge/Resources-15+-green?style=flat)
+
+---
+
 **Made with ❤️ and ☕ by Adil Khan**
 
-⭐ Star this repo if you found it helpful!
+⭐ **Star this repo if you found it helpful!** ⭐
 
 </div>
